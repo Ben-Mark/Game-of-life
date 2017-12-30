@@ -8,6 +8,6 @@ new Vue({
   render: h => h(Main),
   components: {
     Main
-  },
+  }
 
 });

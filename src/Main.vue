@@ -1,11 +1,10 @@
 <template>
-  <div id="app" class="game-of-life">
-    <h2>bugabuga</h2>
+  <div class="game-of-life">
     <table>
       <tbody>
-      <tr v-for="row in rows" :key="row">
-        <td v-for="col in cols" :key="col">
-          <cell  :row="row" :col="col" :active.sync="state[row-1][col-1]"></cell>
+      <tr v-for="row in rows" track-by="$index">
+        <td v-for="col in cols" track-by="$index">
+          <cell :row="row" :col="col" :active.sync="state[row-1][col-1]"></cell>
         </td>
       </tr>
       </tbody>
@@ -19,14 +18,11 @@
 </template>
 
 <script>
-
-  import store from './services/GridUtil.js'
-   import cell from './components/cell.vue'
-
+  import store from './services/GridUtil'
+  import Cell from './components/cell.vue'
   export default {
-    name: 'app',
     components: {
-      cell
+      Cell
     },
 
     data () {
@@ -44,47 +40,44 @@
     },
     methods: {
       toggleInProgress() {
-        this.inProgress = !this.inProgress;
-        if (!this.inProgress) return;
+        this.inProgress = !this.inProgress
+        if (!this.inProgress) return
         const tick = () => {
           if (this.inProgress) {
-            this.gameTick();
+            this.gameTick()
             setTimeout(tick, 100)
           }
-        };
+        }
         setTimeout(tick, 100)
       },
-
       gameTick() {
         // Duplicate state
-        const newState = JSON.parse(JSON.stringify(this.state));
+        const newState = JSON.parse(JSON.stringify(this.state))
         // Work out new state
-
-        const rowMaxIndex = this.state.length - 1;
-        const colMaxIndex = this.state[0].length - 1;
+        const rowMaxIndex = this.state.length - 1
+        const colMaxIndex = this.state[0].length - 1
         for (let i = 0; i < this.state.length; i++) {
           for (let j = 0; j < this.state[i].length; j++) {
-            let aliveNeighbours = 0;
+            let aliveNeighbours = 0
             const neighbourIndexes = [
-              [(i === 0 ? rowMaxIndex : i - 1), (j === 0 ? colMaxIndex : j - 1)], [(i === 0 ? rowMaxIndex : i - 1), j], [(i === 0 ? rowMaxIndex : i - 1), (j === colMaxIndex ? 0 : j + 1)],
-              [i, (j === 0 ? colMaxIndex : j - 1)], false, [i, (j === colMaxIndex ? 0 : j + 1)],
-              [(i === rowMaxIndex ? 0 : i + 1), (j === 0 ? colMaxIndex : j - 1)], [(i === rowMaxIndex ? 0 : i + 1), j], [(i === rowMaxIndex ? 0 : i + 1), (j === colMaxIndex ? 0 : j + 1)]
-            ];
+              [(i == 0 ? rowMaxIndex : i - 1), (j == 0 ? colMaxIndex : j - 1)], [(i == 0 ? rowMaxIndex : i - 1), j], [(i == 0 ? rowMaxIndex : i - 1), (j == colMaxIndex ? 0 : j + 1)],
+              [i, (j == 0 ? colMaxIndex : j - 1)], false, [i, (j == colMaxIndex ? 0 : j + 1)],
+              [(i == rowMaxIndex ? 0 : i + 1), (j == 0 ? colMaxIndex : j - 1)], [(i == rowMaxIndex ? 0 : i + 1), j], [(i == rowMaxIndex ? 0 : i + 1), (j == colMaxIndex ? 0 : j + 1)]
+            ]
             neighbourIndexes.forEach((neighbour) => {
               if (neighbour && this.state[neighbour[0]][neighbour[1]]) aliveNeighbours++
-            });
+            })
             newState[i][j] = this.state[i][j] ? (aliveNeighbours >= 2 && aliveNeighbours <= 3) : (aliveNeighbours === 3)
           }
         }
-        console.log(newState);
         this.state = newState
       },
       clearBoard() {
-        if (this.inProgress) return;
+        if (this.inProgress) return
         this.state = store.createEmptyBoard()
       },
       randomizeBoard() {
-        if (this.inProgress) return;
+        if (this.inProgress) return
         this.state = store.createRandomizedBoard()
       }
     }
@@ -114,19 +107,13 @@
     height: 100%;
     background-color: #EEE;
   }
-
   .game-of-life a:hover {
     background-color: #CCC;
   }
-
   .game-of-life a.active {
-    background-color: #101010;
+    background-color: #666;
   }
-
   .game-of-life a.active:hover {
     background-color: #444;
   }
-
-
-
 </style>
