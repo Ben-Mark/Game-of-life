@@ -31,7 +31,9 @@
         inProgress: false
       }
     },
-
+    created(){
+      this.state = gridFactory.createRandomizedBoard();
+    },
     methods: {
       toggleInProgress() {
         this.inProgress = !this.inProgress;
@@ -97,16 +99,13 @@
     left: 50%;
     transform: translate(-50%, -50%);
     background-color: #000000;
-    height: 500px;
-    width: 700px;
+    height: 60%;
+    width: 50%;
   }
   .board table {
     height: 100%;
     width: 100%;
   }
-  .board td {
-    height: 1%;
-    width: 1%;
-  }
+
 
 </style>

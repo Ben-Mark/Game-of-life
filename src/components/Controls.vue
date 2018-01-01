@@ -19,10 +19,6 @@
       }
     },
 
-    mounted() {
-      hub.$on('inProgress', (val) => this.disableButton = val);
-    },
-
     methods: {
       randomizeBoard() {
         hub.$emit('randomizeBoard', gridFactory.createRandomizedBoard());
@@ -33,7 +29,11 @@
       run() {
         hub.$emit('run', true);
       }
-    }
+    },
+    created() {
+      hub.$on('startApp', () => this.run());
+      hub.$on('inProgress', (val) => this.disableButton = val);
+    },
   }
 </script>
 
