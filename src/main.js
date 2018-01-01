@@ -1,13 +1,12 @@
 import Vue from 'vue'
-import Main from './Main.vue'
-import Test from './Test.vue'
+import App from './components/App.vue'
 
 new Vue({
   el: '#app',
   //render: h => h(Main),
-  render: h => h(Main),
+  render: h => h(App),
   components: {
-    Main
+    App
   }
 
 });
