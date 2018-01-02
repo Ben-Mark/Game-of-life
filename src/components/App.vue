@@ -1,8 +1,8 @@
 <template>
   <div id="app">
-    <board ></board>
+    <board></board>
     <!--<div style="clear : both"></div>-->
-    <controls></controls>
+    <controls class="controls-style"></controls>
   </div>
 </template>
 
@@ -26,5 +26,12 @@
 </script>
 
 <style>
+
+  .controls-style{
+    position:fixed;
+    min-height:20%;
+    margin-left: 30%;
+    bottom:0px;
+  }
 
 </style>

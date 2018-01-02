@@ -3,6 +3,8 @@
     <button @click="run">{{ disableButton ? 'Stop' : 'Start' }}</button>
     <button @click="clearBoard" :disabled="disableButton">Clear board</button>
     <button @click="randomizeBoard" :disabled="disableButton">Randomize board</button>
+    <button @click="gliderGunBoard" :disabled="disableButton">Glider gun pattern</button>
+    <button @click="horizonLineBoard" :disabled="disableButton">Horizontal line pattern</button>
   </div>
 </template>
 
@@ -20,6 +22,12 @@
     },
 
     methods: {
+      gliderGunBoard() {
+        hub.$emit('gliderBoard', gridFactory.getPattern("gliderBoard"));
+      },
+      horizonLineBoard() {
+        hub.$emit('horizonLineBoard', gridFactory.getPattern("horizonLine"));
+      },
       randomizeBoard() {
         hub.$emit('randomizeBoard', gridFactory.createRandomizedBoard());
       },
@@ -30,6 +38,7 @@
         hub.$emit('run', true);
       }
     },
+
     created() {
       hub.$on('startApp', () => this.run());
       hub.$on('inProgress', (val) => this.disableButton = val);
@@ -40,13 +49,7 @@
 <style>
 
   .controls {
-
     text-align: center;
-    padding-top: 3px;
-    margin: auto;
-    position: fixed;
-    bottom: 10%;
-    left: 39%;
   }
 
 </style>

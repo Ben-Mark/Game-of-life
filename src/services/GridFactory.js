@@ -1,7 +1,12 @@
+import {flatGliderGun} from './game-patterns/gliderPattern.js'
+import {horizonLine} from './game-patterns/horizonPattern.js'
+
+
 const rows = 40;
 const cols = 90;
 
-const createEmptyBoard = function() {
+
+const createEmptyBoard = function () {
   const state = [];
   for (let i = 0; i < rows; i++) {
     state[i] = [];
@@ -12,7 +17,50 @@ const createEmptyBoard = function() {
   return state
 };
 
-const createRandomizedBoard = function() {
+
+const injectPatternIntoNewGrid = function(pattern){
+
+ const patternToBoolean = castBoardToBoolean(pattern);
+  const state = createEmptyBoard();
+
+  let patternRows = patternToBoolean.length, patternCols = patternToBoolean[0].length;
+  let topLeftIndex = [Math.round((rows-patternRows)/2)-1,Math.round((cols-patternCols)/2)-1];
+
+  let i = topLeftIndex[0];
+
+  for (; i < patternRows+topLeftIndex[0]; i++) {
+    let j = topLeftIndex[1];
+    for (; j < patternCols+topLeftIndex[1]; j++) {
+      if(patternToBoolean[i - topLeftIndex[0]][j - topLeftIndex[1]]===true){
+
+        console.log('debug')
+      }
+      state[i][j] = patternToBoolean[i - topLeftIndex[0]][j - topLeftIndex[1]]
+    }
+
+  }
+  return state;
+};
+
+const castBoardToBoolean = function(board){
+
+  for (let i = 0; i < board.length; i++) {
+    for (let j = 0; j < board[0].length; j++) {
+      board[i][j] = (board[i][j]) ?  true : false;
+    }
+  }
+  return board
+};
+
+const getPattern = function (pattern) {
+  switch (pattern) {
+    case "gliderBoard": return injectPatternIntoNewGrid(flatGliderGun());
+    case "horizonLine": return injectPatternIntoNewGrid(horizonLine())
+  }
+  return null;
+};
+
+const createRandomizedBoard = function () {
   const state = [];
   for (let i = 0; i < rows; i++) {
     state[i] = [];
@@ -25,151 +73,8 @@ const createRandomizedBoard = function() {
 };
 
 
-
-
-//   const loadPatternIntoGame =  function(patternType) {
-//     // init game
-//     // set pattern onto cells
-//     // update the cells that need to be updated for first step
-//
-//     switch (patternType) {
-//       case "random":
-//         this.initRandom();
-//         break;
-//       case "glider":
-//         this.initGlider();
-//         break;
-//       case "oscillator":
-//         this.initOscillator();
-//         break;
-//       case "acorn":
-//         this.initAcorn();
-//         break;
-//       case "gosperGun":
-//         this.initGosperGun();
-//         break;
-//       default:
-//         this.random();
-//     }
-//
-//     var cellsToUpdate = this.initCellsToUpdateAndCalculateMinMaxCoords();
-//     this.game.updateGameBoard(cellsToUpdate, this.game.renderer);
-//   },
-//   initCellsToUpdateAndCalculateMinMaxCoords: function() {
-//     var cellsToUpdate = [];
-//     var minX = Number.MAX_VALUE;
-//     var maxX = Number.MIN_VALUE;
-//     var minY = Number.MAX_VALUE;
-//     var maxY = Number.MIN_VALUE;
-//
-//     // populate cellsToUpdate list as this is what we will first paint to canvas
-//     for (var i = 0; i < this.numCells.x; i++) {
-//       for (var j = 0; j < this.numCells.y; j++) {
-//         var isAlive = this.cellsArr[i][j];
-//         if (isAlive) {
-//           var aliveCell = new Cell(i, j, isAlive);
-//           cellsToUpdate.push(aliveCell);
-//           if (i < minX) minX = i;
-//           if (i > maxX) maxX = i;
-//           if (j < minY) minY = j;
-//           if (j > maxY) maxY = j;
-//         }
-//       }
-//     }
-//
-//     this.game.updateMinMaxCoords(minX, maxX, minY, maxY);
-//     return cellsToUpdate;
-//   },
-//   initRandom: function() {
-//     for (var i = 0; i < this.game.numCells().x; i++) {
-//       for (var j = 0; j < this.game.numCells().y; j++) {
-//         var randBool = Math.random() >= 0.5;
-//         this.game.cellsArr[i][j] = randBool;
-//       }
-//     }
-//   },
-//   initGlider: function() {
-//     this.cellsArr[1][33] = true;
-//     this.cellsArr[1][34] = true;
-//     this.cellsArr[2][34] = true;
-//     this.cellsArr[2][35] = true;
-//     this.cellsArr[0][35] = true;
-//   },
-//   initOscillator: function() {
-//     this.cellsArr[1][0] = true;
-//     this.cellsArr[1][1] = true;
-//     this.cellsArr[1][2] = true;
-//   },
-//   initAcorn: function() {
-//     this.cellsArr[100][73] = true;
-//     this.cellsArr[101][71] = true;
-//     this.cellsArr[101][73] = true;
-//     this.cellsArr[103][72] = true;
-//     this.cellsArr[104][73] = true;
-//     this.cellsArr[105][73] = true;
-//     this.cellsArr[106][73] = true;
-//   },
-//   initGosperGun: function() {
-//     this.cellsArr[1][5] = true;
-//     this.cellsArr[1][6] = true;
-//     this.cellsArr[2][5] = true;
-//     this.cellsArr[2][6] = true;
-//     this.cellsArr[11][5] = true;
-//     this.cellsArr[11][6] = true;
-//     this.cellsArr[11][7] = true;
-//     this.cellsArr[12][4] = true;
-//     this.cellsArr[12][8] = true;
-//     this.cellsArr[13][3] = true;
-//     this.cellsArr[13][9] = true;
-//     this.cellsArr[14][3] = true;
-//     this.cellsArr[14][9] = true;
-//     this.cellsArr[15][6] = true;
-//     this.cellsArr[16][4] = true;
-//     this.cellsArr[16][8] = true;
-//     this.cellsArr[17][5] = true;
-//     this.cellsArr[17][6] = true;
-//     this.cellsArr[17][7] = true;
-//     this.cellsArr[18][6] = true;
-//     this.cellsArr[21][3] = true;
-//     this.cellsArr[21][4] = true;
-//     this.cellsArr[21][5] = true;
-//     this.cellsArr[22][3] = true;
-//     this.cellsArr[22][4] = true;
-//     this.cellsArr[22][5] = true;
-//     this.cellsArr[23][2] = true;
-//     this.cellsArr[23][6] = true;
-//     this.cellsArr[25][1] = true;
-//     this.cellsArr[25][2] = true;
-//     this.cellsArr[25][6] = true;
-//     this.cellsArr[25][7] = true;
-//     this.cellsArr[35][3] = true;
-//     this.cellsArr[35][4] = true;
-//     this.cellsArr[36][3] = true;
-//     this.cellsArr[36][4] = true;
-//     this.cellsArr[35][22] = true;
-//     this.cellsArr[35][23] = true;
-//     this.cellsArr[35][25] = true;
-//     this.cellsArr[36][22] = true;
-//     this.cellsArr[36][23] = true;
-//     this.cellsArr[36][25] = true;
-//     this.cellsArr[36][26] = true;
-//     this.cellsArr[36][27] = true;
-//     this.cellsArr[37][28] = true;
-//     this.cellsArr[38][22] = true;
-//     this.cellsArr[38][23] = true;
-//     this.cellsArr[38][25] = true;
-//     this.cellsArr[38][26] = true;
-//     this.cellsArr[38][27] = true;
-//     this.cellsArr[39][23] = true;
-//     this.cellsArr[39][25] = true;
-//     this.cellsArr[40][23] = true;
-//     this.cellsArr[40][25] = true;
-//     this.cellsArr[41][24] = true;
-//   }
-// };
-
 const state = createEmptyBoard();
 
 export default {
-  rows, cols, state, createEmptyBoard, createRandomizedBoard
+  rows, cols, state, createEmptyBoard, createRandomizedBoard, getPattern
 }

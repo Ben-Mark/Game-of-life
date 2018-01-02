@@ -1,5 +1,5 @@
 <template>
-  <a @click="toggle" :class="[active ? 'active-style' : 'not-active-style']"  href="#" ></a>
+  <a @click="toggle" :class="[active ? 'active-style' : 'not-active-style']"  href="#" :title="'index : ['+(this.row-1)+','+(this.col-1)+']\n isAlive : '+this.status"></a>
 </template>
 
 <script>
@@ -24,7 +24,7 @@
         this.status = !this.status;
       },
       getTitle(){
-        return 'index: ['+(this.row-1)+','+(this.col-1)+']\n isAlive: '+this.status;
+        return 'index : ['+(this.row-1)+','+(this.col-1)+']\n isAlive : '+this.status;
       }
     },
 
