@@ -26,6 +26,8 @@ const injectPatternIntoNewGrid = function(pattern){
   let patternRows = patternToBoolean.length, patternCols = patternToBoolean[0].length;
   let topLeftIndex = [Math.round((rows-patternRows)/2)-1,Math.round((cols-patternCols)/2)-1];
 
+  if(patternRows > rows || patternCols > cols)
+    throw new Error('the pattern '+pattern.toString()+' is larger than the initial grid size');
   let i = topLeftIndex[0];
 
   for (; i < patternRows+topLeftIndex[0]; i++) {
@@ -52,6 +54,7 @@ const castBoardToBoolean = function(board){
 };
 
 const getPattern = function (pattern) {
+
   switch (pattern) {
     case "gliderBoard": return injectPatternIntoNewGrid(flatGliderGun());
     case "horizonLine": return injectPatternIntoNewGrid(horizonLine())
