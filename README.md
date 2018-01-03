@@ -2,7 +2,7 @@
 
 > A Vue.js project 
 
-## How to run 
+## Run
 
 ``` bash
 #download the project
