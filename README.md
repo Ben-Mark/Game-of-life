@@ -1,6 +1,6 @@
-# game-of-life
+# game-of-life 
 
-> A Vue.js project
+> A Vue.js project 
 
 ## How to run 
 
@@ -15,10 +15,9 @@ npm run dev
 
 ### The code 
 
+The vue code contains 4 vue components
 
-The code is based on modeling the page objects into vue components
-
-Each component interacts via the events-hub, a sibling vue instance
+Each component interacts via the events-hub, a sibling vue instance where, all events run through this object
 
 Every component has its own template, script and style encapsulated for easier maintenance and readability
 
