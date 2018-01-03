@@ -5,6 +5,9 @@
 ## How to run 
 
 ``` bash
+#download the project
+git clone https://github.com/Ben-Mark/Game-of-life.git
+
 # install dependencies
 npm install
 
