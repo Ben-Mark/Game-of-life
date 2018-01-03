@@ -41,7 +41,20 @@ App contains Board and Controls
 
 Board contains Cell
 
+Cell refers to the 2d board index
 
+
+### Algorithm
+
+The algorithm's complexity is O(n*m)*8 
+n = rows , m = columns, 8 = the number of maximum cell neighbors
+The algorithm allows the cells to look for neighbors also on the other edge of the board
+giving this game of life an infinite attribute, 
+For each table index
+the game of life rules apply to it
+if cell is on the edge of the table, the rules apply to its sibling on the opposite edge
+end of table iterations
+old table state equals to new table state ( = next generation)
 
 Conway's Game of Life
 =====================
