@@ -1,16 +1,16 @@
 <template>
   <div class="controls" align="center" padding-top="5px">
-    <button @click="run">{{ disableButton ? 'Stop' : 'Start' }}</button>
-    <button @click="clearBoard" :disabled="disableButton">Clear board</button>
-    <button @click="randomizeBoard" :disabled="disableButton">Randomize board</button>
-    <button @click="gliderGunBoard" :disabled="disableButton">Glider gun pattern</button>
-    <button @click="horizonLineBoard" :disabled="disableButton">Horizontal line pattern</button>
+    <button id="startBtn" @click="run">{{ disableButton ? 'Stop' : 'Start' }}</button>
+    <button id="clearBtn" @click="clearBoard" :disabled="disableButton">Clear board</button>
+    <button id="randomizeBtn" @click="randomizeBoard" :disabled="disableButton">Randomize board</button>
+    <button id="gliderBtn" @click="gliderGunBoard" :disabled="disableButton">Glider gun pattern</button>
+    <button id="horizonBtn" @click="horizonLineBoard" :disabled="disableButton">Horizontal line pattern</button>
   </div>
 </template>
 
 <script>
 
-  import {hub} from '../util/events-hub';
+  import {hub} from '../services/events-hub';
   import gridFactory from '../services/GridFactory'
 
   export default {

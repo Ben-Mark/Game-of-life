@@ -1,7 +1,6 @@
 <template>
   <div id="app">
     <board></board>
-    <!--<div style="clear : both"></div>-->
     <controls class="controls-style"></controls>
   </div>
 </template>
@@ -11,9 +10,10 @@
 
   import controls from './Controls.vue';
   import board from './Board.vue';
-  import {hub} from '../util/events-hub';
+  import {hub} from '../services/events-hub';
 
   export default {
+    render: h => h({board,controls}),
     components : {
       board,
       controls

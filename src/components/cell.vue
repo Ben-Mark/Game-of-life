@@ -47,12 +47,4 @@
   }
 
 </style >
-<!--<style>-->
-<!--.game-of-life a.active {-->
-<!--background-color: #101010;-->
-<!--}-->
 
-<!--.game-of-life a.active:hover {-->
-<!--background-color: #444;-->
-<!--}-->
-<!--</style>-->

@@ -33,7 +33,6 @@ const injectPatternIntoNewGrid = function(pattern){
     for (; j < patternCols+topLeftIndex[1]; j++) {
       if(patternToBoolean[i - topLeftIndex[0]][j - topLeftIndex[1]]===true){
 
-        console.log('debug')
       }
       state[i][j] = patternToBoolean[i - topLeftIndex[0]][j - topLeftIndex[1]]
     }

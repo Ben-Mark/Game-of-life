@@ -16,7 +16,7 @@
 
   import gridFactory from '../services/GridFactory'
   import Cell from './Cell.vue'
-  import {hub} from '../util/events-hub';
+  import {hub} from '../services/events-hub';
 
 
   export default {
@@ -58,29 +58,7 @@
         for (let i = 0; i < this.state.length; i++) {
           for (let j = 0; j < this.state[i].length; j++) {
 
-
             let aliveNeighbours = 0;
-
-            /**
-             *   0,0,0
-             *   0,1,0
-             *   0,0,0
-             */
-//            if( this.state[0][j] || this.state[i][0] || this.state[rowMaxIndex][j] || this.state[i][colMaxIndex]){
-//              const edgeneighbours = [
-//                [(i === 0 ? i+1 : i - 1), (j === 0 ? 0 : j - 1)], //top left corner
-//                [(i === 0 ? 0 : i - 1), j], //top edge
-//                [(i === 0 ? 0 : i - 1), (j === colMaxIndex ? colMaxIndex : j + 1)], //top right corner
-//                [i, (j === 0 ? 0 : j - 1)], //left edge
-//                [i, (j === colMaxIndex ? colMaxIndex : j + 1)], //right edge
-//                [(i === rowMaxIndex ? rowMaxIndex : i + 1), (j === 0 ? 0 : j - 1)], //bottom left corner
-//                [(i === rowMaxIndex ? rowMaxIndex : i + 1), j], //bottom edge
-//                [(i === rowMaxIndex ? rowMaxIndex : i + 1), (j === colMaxIndex ? colMaxIndex : j + 1)] //bottom right corner
-//              ];
-//                newState[i][j] = false;
-//              continue;
-//            }
-
 
             const neighbourIndexes = [
               [(i === 0 ? rowMaxIndex : i - 1), (j === 0 ? colMaxIndex : j - 1)], //top left corner
@@ -93,34 +71,9 @@
               [(i === rowMaxIndex ? 0 : i + 1), (j === colMaxIndex ? 0 : j + 1)] //bottom right corner
             ];
 
-
-            const neighbourIndexesTest = [
-              [(i === 0 ? 0 : i - 1), (j === 0 ? 0 : j - 1)], //top left corner
-              [(i === 0 ? 0 : i - 1), j], //top edge
-              [(i === 0 ? 0 : i - 1), (j === colMaxIndex ? colMaxIndex : j + 1)], //top right corner
-              [i, (j === 0 ? 0 : j - 1)], //left edge
-              [i, (j === colMaxIndex ? colMaxIndex : j + 1)], //right edge
-              [(i === rowMaxIndex ? rowMaxIndex : i + 1), (j === 0 ? 0 : j - 1)], //bottom left corner
-              [(i === rowMaxIndex ? rowMaxIndex : i + 1), j], //bottom edge
-              [(i === rowMaxIndex ? rowMaxIndex : i + 1), (j === colMaxIndex ? colMaxIndex : j + 1)] //bottom right corner
-            ];
-
-//            if( this.state[0][j] || this.state[i][0] || this.state[rowMaxIndex][j] || this.state[i][colMaxIndex]){
-//               if(this.state[0][j])
-//              //console.log('hey')
-//              newState[i][j] = false;
-//              continue;
-//            }
-
-
             neighbourIndexes.forEach((neighbour) => {
-              // if (neighbour !== (this.state[0][j] || state[rowMaxIndex][j] || this.state[i][0] || this.state[i][colMaxIndex]))
-//               debugger;
-//              let bool = this.state[i][j];
-//              let x = i, y = j;
               if (neighbour && this.state[neighbour[0]][neighbour[1]]) aliveNeighbours++
             });
-
 
             switch (this.state[i][j]) {
               case true:
@@ -130,28 +83,10 @@
                 (aliveNeighbours === 3) ? (newState[i][j] = true) : (newState[i][j] = false);
                 break;
             }
-//            if (!this.state[i][j]) {
-//              if (aliveNeighbours === 3)
-//                newState[i][j] = true;
-//              else newState[i][j] = false;
-//              continue;
-//            }
-//            else {
-//              if(aliveNeighbours >= 2 && aliveNeighbours <= 3)
-//                newState[i][j] = true;
-//              else newState[i][j] = false;
-//              continue;
-//            }
-
-            // newState[i][j] = this.state[i][j] ? (aliveNeighbours >= 2 && aliveNeighbours <= 3) : (aliveNeighbours === 3)
-
-//            if(this.state[0][j] || state[rowMaxIndex][j] || this.state[i][0] || this.state[i][colMaxIndex])
-//              newState[i][j] = false;
           }
         }
         this.state = newState
       }
-
     },
     mounted() {
       if (this.inProgress) return;
