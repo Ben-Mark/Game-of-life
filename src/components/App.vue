@@ -30,7 +30,7 @@
   .controls-style{
     position:fixed;
     min-height:20%;
-    margin-left: 30%;
+    margin-left: 29%;
     bottom:0px;
   }
 
