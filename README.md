@@ -16,6 +16,7 @@ npm run dev
 
 ```
 
+
 ### The code 
 
 The vue code contains 4 vue components
@@ -42,6 +43,14 @@ App contains Board and Controls
 Board contains Cell
 
 Cell refers to the 2d board index
+
+
+### Features
+
+- Randomize board
+- Glider gun pattern
+- Horizon line pattern
+- Edit custom patterns by clearing board
 
 
 ### Algorithm
